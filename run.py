@@ -1,0 +1,10 @@
+fastapi==0.111.0
+uvicorn[standard]==0.30.1
+python-multipart==0.0.9
+pydantic==2.8.2
+sentence-transformers==3.0.1
+faiss-cpu==1.8.0.post1
+httpx==0.27.2
+pypdf==4.3.1
+jinja2==3.1.4
+numpy==1.26.4

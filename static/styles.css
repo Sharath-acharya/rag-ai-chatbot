@@ -1,0 +1,43 @@
+const chatBox = document.getElementById('chat-box');
+const form = document.getElementById('chat-form');
+const input = document.getElementById('user-input');
+const status = document.getElementById('status');
+
+function appendMessage(role, text) {
+    const message = document.createElement('div');
+    message.className = `message ${role}`;
+    message.innerHTML = `<strong>${role === 'user' ? 'You' : 'Bot'}:</strong> <span>${text}</span>`;
+    chatBox.appendChild(message);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const message = input.value.trim();
+    if (!message) return;
+
+    appendMessage('user', message);
+    input.value = '';
+    status.textContent = 'Thinking...';
+
+    try {
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message })
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error(data.detail || 'Something went wrong');
+        }
+
+        appendMessage('bot', data.reply);
+        status.textContent = 'Ready';
+    } catch (error) {
+        appendMessage('bot', `Error: ${error.message}`);
+        status.textContent = 'Error';
+    }
+});
+
+appendMessage('bot', 'Hello! Ask me anything about the documents in the knowledge base.');

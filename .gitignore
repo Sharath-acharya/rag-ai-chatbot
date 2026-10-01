@@ -1,0 +1,8 @@
+OLLAMA_BASE_URL=http://localhost:11434
+LLM_MODEL=llama3.2
+EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
+DOCS_DIR=data/knowledge
+VECTOR_STORE_DIR=data/vector_store
+MAX_CONTEXT_CHUNKS=4
+CHUNK_SIZE=500
+CHUNK_OVERLAP=100
